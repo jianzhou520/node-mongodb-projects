@@ -1,0 +1,46 @@
+doctype html
+html(lang="zh-CN")
+    include commonHead.jade
+    body.login
+        div.panel.panel-default.login-panel
+            div.panel-heading
+                div.glyphicon.glyphicon-cloud.logo
+                div 管理员登录
+            div.panel-body
+                form.form-horizontal(method="post" action="loginAction")
+                    div.form-group
+                        label(for="username").glyphicon.glyphicon-user.col-sm-1.control-label.col-sm-offset-1
+                        div.col-sm-9
+                            input(
+                                type="text",
+                                id="username",
+                                name="name",
+                                placeholder="请输入用户名",
+                                required="required",
+                                autocomplete="off"
+                            ).form-control
+                    div.form-group
+                        label(for="password").glyphicon.glyphicon-lock.col-sm-1.control-label.col-sm-offset-1
+                        div.col-sm-9
+                            input(
+                                type="password",
+                                id="password",
+                                name="password",
+                                placeholder="请输入用密码"
+                                required="required"
+                            ).form-control
+                    div.form-group
+                        button.btn.btn-default.col-sm-10.col-sm-offset-5.btn-circle 登录
+            div.panel-footer.login-footer
+                span.help.glyphicon.glyphicon-question-sign(
+                    id="help",
+                    data-container="body",
+                    data-toggle="popover",
+                    data-placement="top",
+                    data-trigger="hover",
+                    data-content="管理员账户由超级管理员分配，如果您还没有账户，请先联系系统超级管理员！"
+                )
+                small 昕锐云&copy;版权所有
+            
+        script.
+           $('#help').popover(); 

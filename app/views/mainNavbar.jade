@@ -1,0 +1,46 @@
+nav.navbar.navbar-default.navbar-fixed-top
+    div.container
+        div.navbar-header
+            button.navbar-toggle.collapsed(
+                type="button"
+                data-toggle="collapse"
+                data-target="#navbar"
+                aria-expanded="false"
+                aria-controls="navbar"
+            )
+                span.icon-bar.label-info
+                span.icon-bar.label-info
+                span.icon-bar.label-info
+            a(href="#").navbar-brand icon
+        div.collapse.navbar-collapse(id="navbar")
+            ul.nav.navbar-nav
+                if currentPage=='index'
+                    li.active
+                        a(href="./index") 首页
+                else 
+                    li
+                        a(href="./index") 首页
+                if currentPage=='introduction'
+                    li.active
+                        a(href="./introduction") 公司简介
+                else 
+                    li
+                        a(href="./introduction") 公司简介
+                if currentPage=='products'
+                    li.active
+                        a(href="./products") 优质产品
+                else 
+                    li
+                        a(href="./products") 优质产品
+                if currentPage=='news'
+                    li.active
+                        a(href="./news") 公司动态
+                else 
+                    li
+                        a(href="./news") 公司动态
+                if currentPage=='contact'
+                    li.active
+                        a(href="./contact") 联系我们
+                else 
+                    li
+                        a(href="./contact") 联系我们

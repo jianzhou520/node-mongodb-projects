@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scalble=1">
+    <title>youtube search</title>
+    <style>
+        button {
+            border: none;
+            padding: 10px 15px;
+            box-shadow: 0 0 4px 0 black;
+        }
+        button:hover {
+            background: #ccc;
+            color: white;
+        }
+        button:active {
+            background: #aaa;
+            box-shadow: 0 0 0 0 black;
+        }
+        
+        table {
+            border: solid #aaa 1px; 
+            margin-top: 30px;
+        }
+
+        main {
+            display: block;
+            width: 968px;
+            margin: 0 auto;
+            text-align: center; 
+        }
+
+        div.item {
+            display: inline-block;
+            position: relative;
+            width: 480px;
+        }
+
+        div.item span {
+            color: white;
+            display: inline-block;
+            position: absolute;
+            width: 100%;
+            line-height: 45px;
+            text-align: center;
+        }
+        span.time {
+            bottom: 4px;
+            left: 0;
+        }
+        div.loading {
+            position: fixed;
+            width: 100%;
+            height: 100%;            
+            background: rgba( 0,0,0,0.5 );
+            top: 0;
+            left: 0;
+            z-index: 2;
+        }
+        div.loading .wrapper {
+            color: white;
+            text-align: center;
+            top: 50%;
+            margin-top: -10px;
+            width: 100%;
+            position: fixed;
+        }
+
+        div.loading.hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <h3>Show youtube videos list</h3>
+    <button type="button" id="target">Get</button
+    ><main role="main" id="main"
+    ></main
+    ><div class="loading hidden" id="loading">
+        <div class="wrapper">视频列表载入中。。。</div>
+    </div>
+    <script type="text/html" id="template">
+        <div class="item">
+            <span class="title">$title</span>
+            <img src="$img" alt="视频图片" class="videoImg">
+            <span class="time">$time</span>            
+        </div>
+    </script>
+    <!-- <script src="http://localhost:35729/livereload.js"></script> -->
+    <script>
+        (function () {
+            var xhr = new XMLHttpRequest(),
+                target = document.getElementById('target');       
+            target.addEventListener( 'click', function ( event ) {
+                var html = '',
+                    snippetObj = null,
+                    templateDOM = document.getElementById('template'),
+                    loading = document.getElementById('loading');
+
+                // 显示遮罩层
+                console.log(loading.classList);
+                loading.className = 'loading';
+                xhr.open(
+                    'get', 
+                    'https://www.googleapis.com/youtube/v3/videos?part=snippet&chart=mostpopular&key=AIzaSyBLsFSbIXQ2s82V34z4QmDVB_UWhT7Ss1s', 
+                    true 
+                );
+
+                xhr.onreadystatechange = function ( ) {
+                    if ( xhr.readyState == 4 ) {
+                        if ( xhr.status >= 200 && xhr.status < 300 || xhr.status == 304 ) {
+                            var dataObj = JSON.parse(xhr.responseText);
+                            for ( var i = 0; i < dataObj.items.length; i++ ) {
+                                snippetObj = dataObj.items[i].snippet;
+                                html = html + 
+                                    templateDOM.innerHTML
+                                        .replace('$title', snippetObj.title)
+                                        .replace('$time', snippetObj.publishedAt)
+                                        .replace('$img', snippetObj.thumbnails.high.url);
+
+                            }
+                            console.log( html );
+                            document.getElementById('main').innerHTML = html;
+                            document.querySelector('img').onload = function () {
+                                loading.className = 'hidden loading';
+                            };
+                        }
+                    }
+                };
+
+                console.log( event );                
+                xhr.send(null);
+            });
+        })();
+        
+    </script>
+</body>
+</html>

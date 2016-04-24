@@ -1,0 +1,31 @@
+doctype html
+html(lang="zh-CN")
+    include commonHead.jade
+    body
+        nav.navbar.navbar-default
+            div.container
+                    div.navbar-header
+                        button.navbar-toggle.collapsed(
+                            type="button"
+                            data-toggle="collapse"
+                            data-target="#navbar"
+                            aria-expanded="false"
+                            aria-controls="navbar"
+                        )
+                            span.icon-bar.label-info
+                            span.icon-bar.label-info
+                            span.icon-bar.label-info
+                        h4.navbar-text.col-xs-offset-1 昕锐云后台管理系统
+                    div.collapse.navbar-collapse(id="navbar")
+                        p.navbar-text.navbar-right
+                            a.navbar-link.glyphicon.glyphicon-log-out(href="./logout" title="安全退出")
+                    
+        main.container-fluid
+            div.row
+                div.col-sm-2.sidebar
+                    ul.nav.nav-sidebar
+                        li.active(href="#") a
+                        li(href="#") b
+                        li(href="#") c
+            div.content.col-sm-10
+                        
