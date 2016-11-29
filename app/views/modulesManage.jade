@@ -1,0 +1,144 @@
+div.operation
+    span.add.glyphicon.glyphicon-plus-sign(
+        type="button",
+        data-toggle="modal",
+        data-target="#addModule"
+    )
+table.table.table-hover.table-condensed
+    thead
+        tr
+            th
+                input(
+                    type="checkbox",
+                    id="selectAll",
+                    data-type="module"
+                )
+            th 序号
+            th 模块名称
+            th 模块描述
+            th 模块类别
+            th 模块地址
+            th 模块层级
+            th 模块标识
+            th 操作
+    tbody
+    -for ( var i = 0; i < tableData.length; i++ )
+        tr(
+            data-itemid="#{tableData[i]._id}"
+        )
+            td
+                input(type="checkbox")
+            td #{(i+1)}
+            td #{tableData[i].name}
+            td #{tableData[i].desc}
+            td #{tableData[i].type}
+            td #{tableData[i].address}
+            td #{tableData[i].level}
+            td #{tableData[i].tag}
+            td 
+                span.glyphicon.glyphicon-remove-sign.operate-item.delete-item
+//- 添加模块的对话框
+div.modal.fade(
+    id="addModule",
+    tabindex="-1",
+    role="dialog",
+    aria-labelledby="addModule"
+)
+    div.modal-dialog(
+        role="document"
+    )
+        div.modal-content
+            div.modal-header
+                button.close(
+                    type="button",
+                    data-dismiss="modal",
+                    aria-label="Close"
+                )
+                    span(aria-hidden="true") &times;
+                h4 添加模块
+            div.modal-body
+                form.form-horizontal(
+                    method="post",
+                    action="/manage/addItem"
+                )
+                    input(
+                        type="hidden",
+                        name="type",
+                        value="module"
+                    )
+                    input(
+                        type="hidden",
+                        name="refresh",
+                        value="/manage:modulesManage"
+                    )
+                    div.form-group
+                        label.col-sm-3.control-label(for="name") 模块名称
+                        div.col-sm-9
+                            input.form-control(
+                                required="required", 
+                                type="text", 
+                                name="name",
+                                id="name"
+                            )
+                    div.form-group
+                        label.col-sm-3.control-label(for="desc") 模块描述
+                        div.col-sm-9
+                            textarea.form-control(
+                                required="required", 
+                                name="desc", 
+                                id="desc", 
+                                rows="12", 
+                                cols="50"
+                            )         
+                    div.form-group
+                        label.col-sm-3.control-label(for="moduleType") 模块类别
+                        div.col-sm-9
+                            input.form-control(
+                                required="required", 
+                                type="text", 
+                                name="moduleType",
+                                id="moduleType",
+                                placeholder="模块类别用来判断是否是同类型的管理功能"
+                            )
+                    div.form-group
+                        label.col-sm-3.control-label(for="address") 模块地址
+                        div.col-sm-9
+                            input.form-control(
+                                required="required", 
+                                type="text", 
+                                name="address",
+                                id="address",
+                                placeholder="用以访问该模块的url地址"
+                            )
+                     div.form-group
+                        label.col-sm-3.control-label(for="level") 模块层级
+                        div.col-sm-9
+                            input.form-control(
+                                required="required",
+                                type="number",
+                                name="level",
+                                id="level",
+                                placeholder="层级决定了模块的菜单是主菜单还是其他菜单"
+                            )   
+                    div.form-group
+                        label.col-sm-3.control-label(for="tag") 模块标识
+                        div.col-sm-9
+                            input.form-control(
+                                required="required",
+                                type="text",
+                                name="tag",
+                                id="tag"
+                            )   
+                    div.form-group
+                        label.col-sm-3.control-label(for="hasMore") 是否有子级模块
+                        div.col-sm-9
+                            input.form-control(
+                                required="required",
+                                type="checkbox",
+                                name="hasMore",
+                                id="hasMore"
+                            )  
+                    div.form-group
+                        div.col-sm-12
+                            input.form-control.btn-info(type="submit")
+            div.modal-footer                

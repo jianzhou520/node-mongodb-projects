@@ -3,7 +3,6 @@ module.exports = function ( grunt ) {
     // grunt 的初始化参数
     require('time-grunt')(grunt);
     require('grunt-task-loader')(grunt);
-    
     // grunt初始化
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),

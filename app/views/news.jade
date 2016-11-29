@@ -1,8 +1,57 @@
 doctype html
 html(lang="zh-CN")
     include commonHead.jade
-    body
+    body.news
         include mainNavbar  
-        main.container.content
-            div dsagl
+        main.container.content.news
+            -for ( var i = 0; i < news.length; i++ )
+                div.row.item(
+                    data-itemid="#{news[i].getValue('_id')}"
+                )
+                    div.col-xs-12
+                        h4.title 
+                            a(
+                                href="/getNewsContent:#{news[i].getValue('_id')}"
+                            ) #{news[i].getValue('title')}           
+                    img.product-img.col-xs-4(
+                        src="#{news[i].getValue('previewImg')}"
+                    )
+                    div.col-xs-8.desc
+                        |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#{news[i].getValue('desc')}
+                    div.col-xs-12.keywords
+                        span.glyphicon.glyphicon-tags #{news[i].getValue('keywords')}
+                    div.col-xs-12.time 
+                        span.glyphicon.glyphicon-time #{news[i].getValue('time')}
+                    div.col-xs-12
+                        span.item.glyphicon.glyphicon-eye-open.seperate  
+                            span.value #{news[i].getValue('watched')}
+                        span.item.like.glyphicon.glyphicon.glyphicon-thumbs-up  
+                            span.value #{news[i].getValue('liked')}
+                    div.col-xs-12
+                        div.border
         include footer
+        script.
+            //- 添加点赞功能
+            $('main').on('click', function ( event ) {
+                var $target = $( event.target ),
+                    $value = $target.find('.value');
+                if ( $target.hasClass('item') && 
+                $target.hasClass('like') ) {
+                    $.ajax({
+                        url: 
+                            '/like:' +
+                            $target.parents('div.item.row').data('itemid'),
+                        type: 'get'
+                    }).done( function ( data ) {
+                        if ( data == 'success' ) {
+                            $value.html(
+                                Number( $value.html() ) + 1
+                            );
+                        } else {
+                            alert( '操作失败' );
+                        }
+                    }).fail( function ( jqHHR, textStatus, errorThrown ) {
+                        console.log ( '操作失败 ' + errorThrown );
+                    });
+                }
+            });

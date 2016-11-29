@@ -1,0 +1,86 @@
+div.operation
+    span.remove-all.glyphicon.glyphicon-remove-sign
+    span.add.glyphicon.glyphicon-plus-sign(
+        type="button",
+        data-toggle="modal",
+        data-target="#addPartner"
+    )
+table.table.table-hover.table-condensed
+    thead
+        tr
+            th
+                input(
+                    type="checkbox",
+                    id="selectAll",
+                    data-type="partner" 
+                )
+            th 序号
+            th 公司名称
+            th 公司logo
+            th 公司简介
+            th 操作
+    tbody
+    -for ( var i = 0; i < tableData.length; i++ )
+        tr(
+            data-itemid="#{tableData[i].getValue('_id')}"
+        )
+            td
+                input(type="checkbox")
+            td #{(i+1)}
+            td #{tableData[i].name}
+            td 
+                img(src="#{tableData[i].logo}").normal
+            td #{tableData[i].desc}
+            td 
+                span.glyphicon.glyphicon-remove-sign.operate-item.delete-item
+//- 添加合作伙伴的对话框
+div.modal.fade(
+    id="addPartner",
+    tabindex="-1",
+    role="dialog",
+    aria-labelledby="addPartner"
+)
+    div.modal-dialog(
+        role="document"
+    )
+        div.modal-content
+            div.modal-header
+                button.close(
+                    type="button",
+                    data-dismiss="modal",
+                    aria-label="Close"
+                )
+                    span(aria-hidden="true") &times;
+                h4 添加产品
+            div.modal-body
+                form.form-horizontal(
+                    method="post",
+                    action="/manage/addItem",
+                    enctype="multipart/form-data"
+                )
+                    input(type="hidden",value="partner",name="type")
+                    input(type="hidden",value="/manage:partnerManage",name="refresh")
+                    div.form-group
+                        label.col-sm-3.control-label(for="name") 公司名称
+                        div.col-sm-9
+                            input.form-control(required="required", type="text", name="name",id="name")
+                    div.form-group
+                        label.col-sm-3.control-label(for="img") 公司logo
+                        div.col-sm-9
+                            input(required="required", type="file", name="img", id="img")
+                    div.form-group
+                        label.col-sm-3.control-label(for="desc") 公司简介
+                        div.col-sm-9
+                            input.form-control(
+                                required="required", 
+                                type="text", 
+                                name="desc", 
+                                id="desc"
+                            )
+                    div.form-group
+                        div.col-sm-12
+                            input.form-control.btn-info(
+                                type="submit",
+                                value="添加"
+                            )
+            div.modal-footer                                

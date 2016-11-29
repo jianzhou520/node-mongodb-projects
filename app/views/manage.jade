@@ -1,31 +1,174 @@
 doctype html
 html(lang="zh-CN")
     include commonHead.jade
-    body
-        nav.navbar.navbar-default
-            div.container
-                    div.navbar-header
-                        button.navbar-toggle.collapsed(
-                            type="button"
-                            data-toggle="collapse"
-                            data-target="#navbar"
-                            aria-expanded="false"
-                            aria-controls="navbar"
-                        )
-                            span.icon-bar.label-info
-                            span.icon-bar.label-info
-                            span.icon-bar.label-info
-                        h4.navbar-text.col-xs-offset-1 昕锐云后台管理系统
-                    div.collapse.navbar-collapse(id="navbar")
-                        p.navbar-text.navbar-right
-                            a.navbar-link.glyphicon.glyphicon-log-out(href="./logout" title="安全退出")
-                    
-        main.container-fluid
-            div.row
-                div.col-sm-2.sidebar
-                    ul.nav.nav-sidebar
-                        li.active(href="#") a
-                        li(href="#") b
-                        li(href="#") c
-            div.content.col-sm-10
-                        
+    style.
+        @keyframes test {
+            from {
+                left: 30px;
+                top: 30px;
+            }
+            to {
+                left: 400px;
+                top: 30px;
+            }
+        }
+        #testTarget {
+            width: 300px;
+            height: 300px;
+            background: red;
+            position: fixed;
+            top: 30px;
+            left: 30px;
+            animation: test 2s ease-in-out 1;
+            animation-direction: reverse;
+            animation-play-state: paused;
+        }
+body.manage
+    nav.navbar.navbar-default.navbar-fixed-top
+        div.container-fluid
+                div.navbar-header
+                    button.navbar-toggle.collapsed(
+                        type="button"
+                        data-toggle="collapse"
+                        data-target="#navbar"
+                        aria-expanded="false"
+                        aria-controls="navbar"
+                    )
+                        span.icon-bar.label-info
+                        span.icon-bar.label-info
+                        span.icon-bar.label-info
+                    h4.navbar-text 昕锐云后台管理系统
+                div.collapse.navbar-collapse(id="navbar")
+                    p.navbar-text.navbar-right
+                        a.navbar-link.glyphicon.glyphicon-log-out(href="./logout" title="安全退出")
+
+    main.container-fluid
+        div.row.manage
+            div.col-xs-2.sidebar
+                ul.nav.nav-sidebar
+                    -for ( var i = 0; i < moduleData.length; i++ )
+                        li
+                            -if ( moduleData[i].level == 1 )
+                                if ( reqType == moduleData[i].tag )
+                                    a(href="#{moduleData[i].address}").active #{moduleData[i].name}
+                                else
+                                    a(href="#{moduleData[i].address}") #{moduleData[i].name}
+                                if ( moduleData[i].getValue('hasMore') == true )
+                                    ul.content-manage
+                                        -for ( var j = 0; j < moduleData.length; j++ )
+                                            li
+                                                -if ( reqType == moduleData[j].tag && moduleData[j].type == moduleData[i].type && moduleData[j].level == 2 )
+                                                        a(href="#{moduleData[j].address}").active #{moduleData[j].name}
+                                                -else if (  moduleData[j].level == 2 )
+                                                        a(href="#{moduleData[j].address}") #{moduleData[j].name}
+            div.col-xs-10.col-xs-offset-2
+                div.content
+                    if includeFile == 'roleManage.jade'
+                        include roleManage.jade
+                    if includeFile == 'newsManage.jade'
+                        include newsManage.jade
+                    if includeFile == 'usersManage.jade'
+                        include usersManage
+                    if includeFile == 'modulesManage.jade'
+                        include modulesManage
+                    if includeFile == 'productManage.jade'
+                        include productManage
+                    if includeFile == 'partnerManage.jade'
+                        include partnerManage
+                    if includeFile == 'companyInfo.jade'
+                        include companyInfo
+    div.panel-wrapper.hidden
+        div.panel.panel-danger.panel-fixed(
+            id="notification"
+        )
+            div.panel-heading
+                div.panel-title.text-center 系统通知
+            div.panel-body
+                |确定删除该项配置?
+            div.panel-footer.container-fluid
+                div.row
+                    button.col-sm-2.pull-right.btn.btn-info.sure 确定
+                    button.col-sm-2.pull-right.btn.btn-default.cancel 取消
+    script.
+        tools.attachSelectAll('#selectAll');
+        $('div.panel-wrapper button.cancel').on('click', function ( event ) {
+            tools.toggleDisplay( 'div.panel-wrapper', 'hidden', '' );
+        });
+        //- 全部删除的操作
+        $('span.remove-all').on( 'click', function ( event ) {
+            var $selectedItems = 
+                $('table')
+                    .find('input:checked')
+                    .not('#selectAll')
+                .parents('tr');
+            var data = [],
+                type = $('#selectAll').data('type');                
+            if ( $selectedItems.length >= 1 ) {
+                for ( var i = 0; i < $selectedItems.length; i++ ) {
+                    data.push( $($selectedItems[i]).data('itemid') );
+                }
+                tools.toggleDisplay( 
+                    'div.panel-wrapper', 
+                    'hidden', 
+                    '确认删除这' + $selectedItems.length + '条记录?'
+                );
+                //- 添加确定按钮的处理事件
+                $('div.panel-wrapper').find('div.panel-footer button.btn.sure')
+                .off('click')
+                .on( 'click', function ( event ) {
+                    $.ajax({
+                        url: tools.config.url['deleteAll'],
+                        type: 'post',
+                        data: {
+                            items: data.toString(),
+                            type: type
+                        }
+                    })
+                    .done( function ( data ) {
+                        //- location.reload(true);
+                        if ( data == 'success' ) {
+                            location.reload(true);
+                        }
+                    })
+                    .fail( function ( jqXHR, textStatus, errorThrown ) {
+                        console.log ( 'request failed' );
+                    });
+                });
+            }       
+        });
+        //- 进行页面的按钮初始化
+        $('span.operate-item').on('click', function ( event ) {
+            var $this = $(this),
+                data = [],
+                type = $('#selectAll').data('type');                
+            if ( $this.hasClass('delete-item') &&
+                $this.parents('tr').find('input:checked').length != 0 ) {
+                tools.toggleDisplay( 
+                    'div.panel-wrapper', 
+                    'hidden', 
+                    '确认删除该条记录?' 
+                );
+            }
+            //- 添加确定按钮的处理事件
+            $('div.panel-wrapper').find('div.panel-footer button.btn.sure')
+            .off('click')
+            .on( 'click', function ( event ) {
+                data.push( $this.parents('tr').data('itemid') );
+                $.ajax({
+                    url: tools.config.url['deleteAll'],
+                    type: 'post',
+                    data: {
+                        items: data.toString(),
+                        type: type
+                    }
+                })
+                .done( function ( data ) {
+                    if ( data == 'success' ) {
+                        location.reload(true);
+                    }
+                })
+                .fail( function ( jqXHR, textStatus, errorThrown ) {
+                    console.log ( 'request failed' );
+                });
+            });
+        });

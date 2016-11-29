@@ -1,0 +1,423 @@
+html,
+body {
+	margin: 0;
+	padding: 0;
+	font-family: 'Microsoft Yahei Light', sans-serif;
+	width: 100%;
+}
+body.login {
+	background: url('../images/bg.jpg') no-repeat;
+	background-size: 100% auto;
+}
+body.manage {
+	min-width: 980px;
+}
+body.login {
+	min-width: 940px;
+}
+body.products,
+body.news {
+	background: #f5f5f5;
+}
+
+img.normal {
+	max-width: 100px;
+}
+img.auto {
+	width: 100%;
+}
+img.logo {
+	width: 50px;
+	padding: 0;
+}
+
+p.error {
+	color: red;
+	text-align: center;
+}
+
+textarea {
+	resize: vertical;
+}
+
+textarea.normal {
+	height: 300px;
+	text-align: left;
+}
+
+.notshow {
+	display: none;
+}
+
+span.item,
+span.operate-item {
+	display: inline-block;
+	color: #aaa;
+	cursor: pointer;
+}
+span.item {
+	background: #eee;
+	padding: 10px 15px;
+	text-align: center;
+	width: 50%;
+}
+span.item.like:active {
+	background: #ccc;
+}
+span.item span.value {
+	vertical-align: text-top;
+}
+span.item.seperate,
+span.operate-item.seperate {
+	border-right: 1px solid white;
+}
+span.operate-item {
+	padding: 0 5px;	
+	font-size: 16px;
+}
+span.operate-item:hover {
+	color: #555;
+}
+span.delete-item {
+	color: lightcoral;	
+}
+span.delete-item:hover {
+	color: red;
+}
+
+main.content {
+	padding-top: 50px;
+}
+div.manage {
+	margin-top: 52px;
+}
+
+button.btn-circle {
+	border-radius: 50%;
+	width: 60px;
+	height: 60px;
+}
+button.btn.btn-default.btn-circle:focus {
+	outline: none;
+}
+
+div.login-panel {
+	background: rgba( 255,255,255, 0.5 );
+	width: 300px;
+	margin: 100px auto;
+}
+div.login-panel .glyphicon {
+	color: white;
+}
+div.login-panel form {
+	margin-top: 15px;
+}
+div.login-panel .login-footer {
+	padding: 2px 10px;
+	position: relative;
+	line-height: 25px;
+	text-align: right;
+	background: rgba( 255,255,255, 0.7 );
+	color: #aaa;
+}
+div.login-panel .panel-heading {
+	text-align: center;
+	background: rgba( 255,255,255, 0.7 );
+}
+div.login-panel .panel-heading .logo {
+	font-size: 36px;
+}
+
+#help {
+	color: #ccc;
+	position: absolute;
+	line-height: 25px;
+	left: 5px;
+}
+#help.preview {
+	left: auto;
+	margin-left: 2px;
+	margin-top: 4px;
+}
+#help:hover {
+	color: #aaa;
+}
+
+.sidebar {
+	background: #f5f5f5;
+	border-right: 1px solid #777;
+	box-shadow: 1px 1px 4px 0 #777;
+	position: absolute;
+	top: 52px;
+	bottom: 0;
+	min-width: 160px;
+	overflow-y: auto;
+}
+.sidebar .nav-sidebar {
+	margin-left: -15px;
+	margin-right: -15px;
+}
+.sidebar .nav-sidebar ul a {
+	color: #999;
+	text-decoration: none;
+}
+
+.sidebar .nav-sidebar li a.more::after,
+.sidebar .nav-sidebar ul a.active::before {
+	content: ' ';
+	display: inline-block;
+	position: absolute;
+	border: solid 5px transparent;
+}
+.sidebar .nav-sidebar a.active {
+	color: black;
+}
+.sidebar .nav-sidebar ul a.active::before {
+	border-left: 5px black solid;
+	margin-top: 5px;
+	margin-left: -8px;
+}
+.sidebar .nav-sidebar > li > a.more.active::after {
+	border: solid 5px transparent;
+	border-top: 5px black solid;
+	margin-top: 8px;
+	margin-left: 5px;
+}
+.sidebar .nav-sidebar > li > a.more::after {
+	border-right: 5px black solid;
+	margin-top: 4px;
+	margin-left: 0px;
+}
+.sidebar .nav-sidebar > li > a.active {
+	background: #777;
+	color: white;
+}
+.sidebar ul.more li a.active {
+	color: black;
+	text-decoration: none;
+}
+.sidebar > ul > li.active > a {
+	background: #777;
+	color: white;
+}
+.sidebar .content-manage {
+	background: white;
+	list-style: none;
+	padding: 10px 40px 10px 30px;
+}
+
+.bg-default {
+	background: #e7e7e7;
+}
+
+div.operation {
+	background: #ddd;
+	color: #888;
+	font-size: 16px;
+	padding: 5px 4px;
+}
+div.operation span {
+	cursor: pointer;
+	margin-right: 4px;
+}
+div.operation > span:hover {
+	color: #555;
+}
+
+div.panel-wrapper {
+	position: fixed;
+	top: 0;
+	left: 0;
+	background: black;
+	background-color: rgba(0,0,0,0.4);
+	width: 100%;
+	height: 100%;
+	z-index: 2000;
+}
+#notification {
+	margin: 200px auto;
+	width: 400px;
+}
+#notification div.panel-body {
+	font-size: 16px;
+	padding: 30px 15px;
+}
+#notification div.panel-footer {
+	padding: 5px 20px;
+}
+#notification div.panel-footer button {
+	margin: 0 2px;
+}
+
+div.desc {
+	padding: 10px 15px;
+}
+
+main.news div.desc {
+	padding: 10px 15px;
+}
+main.news h4.title {
+	border-left: 4px solid #888;
+	padding-left: 4px;
+	text-decoration: underline;
+}
+
+main div.border {
+	width: 100%;
+	height: 2px;
+	background: white;
+}
+main div.border.reverse {
+	background: #888;
+}
+
+main.contact span.name {
+	font-weight: bold;
+}
+main.contact div.info {
+	padding: 20px 15px;
+}
+main.contact div.partner div.item {
+	margin: 10px 0;
+}
+main.contact div.partner img {
+	border: solid 1px #888;
+	border-radius: 0 40% 0 40%;
+	-webkit-transition: all .8s ease-in-out 0s;
+	-moz-transition: all .8s ease-in-out 0s;
+	transition: all .8s ease-in-out 0s;
+}
+main.contact div.partner img:hover {
+	box-shadow: 0 0 20px 0 #66afe9;	
+}
+
+main.newsContent {
+	padding: 10px 20px;
+	padding-top: 50px;
+}
+main.newsContent img {
+	width: 100%;
+}
+
+main.companyInfo .info {
+	padding: 20px 15px;
+}
+
+main div.time {
+	margin-bottom: 10px;
+	color: #ccc;
+}
+
+main p.left,
+main p.right {
+	color: white;
+	font-size: 35px;
+	-webkit-transition: all 1s ease-in-out 0s;
+	-moz-transition: all 1s ease-in-out 0s;
+	transition: all 1s ease-in-out 0s;
+	position: absolute;
+	width: 100%;
+}
+main p.left {
+	margin-top: 30px;
+	left: -40%;
+	animation: pageoneLeft 1s .5s ease-in-out forwards;
+}
+main p.right {
+	font-size: 18px;
+	margin-top: 100px;
+	left: 45%;
+	animation: pageoneRight 1s .5s ease-in-out forwards;		
+}
+
+@keyframes pageoneLeft {
+	0% {
+		left: -40%;
+	}
+	50% {
+		left: 5%;
+	}
+	80% {
+		left: 0;
+	}
+	100% {
+		left: 2%;
+	}
+}
+@keyframes pageoneRight {
+	from {
+		left: 45%;
+	}
+	to {
+		left: 2%;
+	}
+}
+
+@keyframes pagetwoLeft {
+	0% {
+		left: -40%;
+	}
+	50% {
+		left: 5%;
+	}
+	80% {
+		left: 0;
+	}
+	100% {
+		left: 2%;
+	}
+}
+@keyframes pagetwoRight {
+	from {
+		left: 45%;
+	}
+	to {
+		left: 2%;
+	}
+}
+
+@keyframes pagethreeLeft {
+	0% {
+		left: -40%;
+	}
+	50% {
+		left: 5%;
+	}
+	80% {
+		left: 0;
+	}
+	100% {
+		left: 2%;
+	}
+}
+@keyframes pagethreeRight {
+	from {
+		left: 45%;
+	}
+	to {
+		left: 2%;
+	}
+}
+
+@keyframes pagefourLeft {
+	0% {
+		left: -40%;
+	}
+	50% {
+		left: 5%;
+	}
+	80% {
+		left: 0;
+	}
+	100% {
+		left: 2%;
+	}
+}
+@keyframes pagefourRight {
+	from {
+		left: 45%;
+	}
+	to {
+		left: 2%;
+	}
+}

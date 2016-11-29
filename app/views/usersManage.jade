@@ -1,0 +1,82 @@
+div.operation
+    span.remove-all.glyphicon.glyphicon-remove-sign.move-all
+    span.add.glyphicon.glyphicon-plus-sign.add-module(
+        type="button",
+        data-toggle="modal",
+        data-target="#addUser"
+    )
+table.table.table-hover.table-condensed
+    thead
+        tr
+            th
+                input(
+                    type="checkbox",
+                    id="selectAll",
+                    data-type="user"
+                )
+            th 序号
+            th 姓名
+            th 账户
+            th 密码
+            th 操作
+    tbody
+    -for ( var i = 0; i < tableData.length; i++ )
+        tr(data-itemid="#{tableData[i]._id}")
+            td
+                input(type="checkbox")
+            td #{(i+1)}
+            td #{tableData[i].name}
+            td #{tableData[i].userId}
+            td #{tableData[i].password}
+            td 
+                span.glyphicon.glyphicon-remove-sign.operate-item.delete-item
+//- 添加用户的对话框
+div.modal.fade(
+    id="addUser",
+    tabindex="-1",
+    role="dialog",
+    aria-labelledby="addUser"
+)
+    div.modal-dialog.modal-sm(
+        role="document"
+    )
+        div.modal-content
+            div.modal-header
+                button.close(
+                    type="button",
+                    data-dismiss="modal",
+                    aria-label="Close"
+                )
+                    span(aria-hidden="true") &times;
+                h4 添加用户
+            div.modal-body
+                form.form-horizontal(
+                    method="post",
+                    action="/manage/addItem"
+                )
+                    input(type="hidden",value="user",name="type")
+                    input(type="hidden",value="/manage:usersManage",name="refresh")
+                    div.form-group
+                        label.col-sm-3.control-label(for="userName") 姓名
+                        div.col-sm-9
+                            input.form-control(required="required", type="text", name="userName",id="userName")
+                    div.form-group
+                        label.col-sm-3.control-label(for="userId") 账号
+                        div.col-sm-9
+                            input.form-control(required="required", type="text", name="userId", id="userId")
+                    div.form-group
+                        label.col-sm-3.control-label(for="password") 密码
+                        div.col-sm-9
+                            input.form-control(
+                                required="required", 
+                                type="text", 
+                                name="password", 
+                                id="password"
+                            )
+                    div.form-group
+                        div.col-sm-12
+                            input.form-control.btn-info(
+                                type="submit",
+                                value="添加用户"
+                            )
+            div.modal-footer

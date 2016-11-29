@@ -3,7 +3,37 @@ html(lang="zh-CN")
     include commonHead.jade
     body
         include mainNavbar
-        main.container.content
-            div dasglk
+        main.container.content.contact
+            div.row
+                img.auto(
+                    src="/images/contact.jpg"
+                )
+            div.row.partner
+                h3.col-xs-12 合作伙伴
+                -for ( var i = 0; i < partners.length; i++ )
+                    div.col-xs-6.item
+                        img.auto(
+                            src="#{partners[i].logo}",
+                            title="#{partners[i].desc}"
+                        )     
+            div.row.info
+                div.col-xs-12
+                    div.border.reverse
+                h3.col-xs-12 联系我们
+                div.col-xs-12.desc
+                    span.name 公司名称：
+                    span #{companyInfo[0].name}
+                div.col-xs-12.desc
+                    span.name 联&nbsp;&nbsp;系&nbsp;&nbsp;人：
+                    span #{companyInfo[0].person}
+                div.col-xs-12.desc
+                    span.name 电&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;话：
+                    span #{companyInfo[0].tel}
+                div.col-xs-12.desc
+                    span.name 手&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;机：
+                    span #{companyInfo[0].phone}
+                div.col-xs-12.desc
+                    span.name 公司地址：
+                    span #{companyInfo[0].address}
         include footer
             

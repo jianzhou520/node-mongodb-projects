@@ -1,0 +1,140 @@
+//- 引入ueditor所需的依赖文件
+script(src="ueditor/example/public/ueditor/ueditor.config.js")
+script(src="ueditor/example/public/ueditor/ueditor.all.js")
+script(src="ueditor/example/public/ueditor/lang/zh-cn/zh-cn.js")
+
+div.operation
+    span.remove-all.glyphicon.glyphicon-remove-sign
+    span.add.glyphicon.glyphicon-plus-sign(
+        type="button",
+        data-toggle="modal",
+        data-target="#addNewsModal"
+    )
+table.table.table-hover.table-condensed
+    thead
+        tr
+            th
+                input(
+                    type="checkbox",
+                    id="selectAll",
+                    data-type="news")
+            th 序号
+            th 标题
+            th 关键词
+            th 简介
+            th 新闻地址
+            th 操作
+    tbody
+        -for ( var i = 0; i < tableData.length; i++ )
+            tr(data-itemid="#{tableData[i]._id}")
+                td
+                    input(type="checkbox")
+                td #{(i+1)}
+                td #{tableData[i].title}
+                td #{tableData[i].keywords}                   
+                td #{tableData[i].desc}
+                td 
+                    a(
+                        href="/getNewsContent:#{tableData[i]._id}"
+                    ) /getNewsContent:#{tableData[i]._id}               
+                td 
+                    span.glyphicon.glyphicon-remove-sign.operate-item.delete-item
+                    //- span.glyphicon.glyphicon-edit.operate-item.edit-item                    
+//- 添加新闻的对话框
+div.modal.fade(
+    id="addNewsModal",
+    tabindex="-1",
+    role="dialog",
+    aria-labelledby="addNewsModal"
+)
+    div.modal-dialog.modal-lg(
+        role="document"
+    )
+        div.modal-content
+            div.modal-header
+                button.close(
+                    type="button",
+                    data-dismiss="modal",
+                    aria-label="Close"
+                )
+                    span(aria-hidden="true") &times;
+                h4 添加新闻动态
+            div.modal-body
+                form.form-horizontal(
+                    method="post",
+                    enctype="multipart/form-data",
+                    action="/manage/addItem"
+                )
+                    input(
+                        type="hidden",
+                        name="type",
+                        value="news"
+                    )
+                    input(
+                        type="hidden",
+                        name="refresh",
+                        value="/manage:newsManage"
+                    )
+                    div.form-group
+                        label.col-sm-2.control-label(for="newsTitle") 新闻标题
+                        div.col-sm-10
+                            input.form-control(
+                                type="text",
+                                name="title",
+                                id="newsTitle",
+                                required="required",
+                                placeholder="请输入新闻标题"
+                            )
+                    div.form-group
+                        label.col-sm-2.control-label(for="newsDesc") 新闻简介
+                        div.col-sm-10
+                            input.form-control(
+                                type="text",
+                                name="newsDesc",
+                                id="newsDesc",
+                                required="required",
+                                placeholder="请输入新闻简介"
+                            )
+                    div.form-group
+                        label.col-sm-2.control-label(for="newsContent") 新闻内容
+                        div.col-sm-10
+                            script(id="editor",type="text/plain",style="width:100%;height:180px;",required="required")
+                    div.form-group
+                        label.col-sm-2.control-label(
+                            for="previewImg"
+                        ) 新闻预览图 
+                            span.preview.help.glyphicon.glyphicon-question-sign(
+                                id="help",
+                                data-container="body",
+                                data-toggle="popover",
+                                data-placement="top",
+                                data-trigger="hover",
+                                data-content="展示在新闻列表页中的图片，非新闻详情中的图片"
+                            )
+                        div.col-sm-10
+                            input(
+                                type="file",
+                                name="img",
+                                id="previewImg"
+                            )
+                    div.form-group
+                        label.col-sm-2.control-label(for="keywords") 新闻关键词
+                        div.col-sm-10
+                            input.form-control(
+                                type="text",
+                                name="keywords",
+                                id="keywords",
+                                required="required",
+                                placeholder="请输入新闻关键词,并以'|'分隔"
+                            )
+                    div.form-group
+                        div.col-sm-12
+                            input.form-control.btn-info(type="submit")
+            div.modal-footer
+
+//- 初始化ueditor
+script.
+    var ue = UE.getEditor('editor', {
+        autoHeightEnabled: false
+    });          
+    $('#help').popover();

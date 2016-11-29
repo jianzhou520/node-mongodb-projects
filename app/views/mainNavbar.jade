@@ -11,7 +11,9 @@ nav.navbar.navbar-default.navbar-fixed-top
                 span.icon-bar.label-info
                 span.icon-bar.label-info
                 span.icon-bar.label-info
-            a(href="#").navbar-brand icon
+            img.navbar-brand.logo(
+                src="/images/logo.jpg"
+            )
         div.collapse.navbar-collapse(id="navbar")
             ul.nav.navbar-nav
                 if currentPage=='index'
@@ -34,10 +36,10 @@ nav.navbar.navbar-default.navbar-fixed-top
                         a(href="./products") 优质产品
                 if currentPage=='news'
                     li.active
-                        a(href="./news") 公司动态
+                        a(href="./getAllData:news") 公司动态
                 else 
                     li
-                        a(href="./news") 公司动态
+                        a(href="./getAllData:news") 公司动态
                 if currentPage=='contact'
                     li.active
                         a(href="./contact") 联系我们

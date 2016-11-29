@@ -1,8 +1,16 @@
 doctype html
 html(lang="zh-CN")
     include commonHead.jade
-    body
+    body.products
         include mainNavbar
-        main.container.content
-            div sdga
+        main.container.content.products
+            -for ( var i = 0; i < tableData.length; i++ )
+                div.row.item
+                    img.product-img.col-xs-4(
+                        src="#{tableData[i].getValue('img')}"
+                    )
+                    div.col-xs-8.desc
+                        |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#{tableData[i].getValue('desc')}
+                    div.col-xs-12
+                        div.border
         include footer

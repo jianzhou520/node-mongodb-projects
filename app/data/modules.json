@@ -1,0 +1,74 @@
+[
+    {
+        "_id":{"$oid":"5728d1986dcfc9be33dbcd14"},
+        "name":"模块管理",
+        "tag":"modulesManage",
+        "address":"./manage:modulesManage",
+        "type":"模块管理",
+        "desc":"模块描述", 
+        "level": 1
+    },
+    {
+        "_id":{"$oid":"5728d1b36dcfc9be33dbcd15"},
+        "name":"用户管理",
+        "tag":"usersManage",
+        "address":"./manage:usersManage",
+        "type":"用户管理",
+        "desc":"模块描述", 
+        "level": 1
+    },
+    {
+        "_id":{"$oid":"5728d1e76dcfc9be33dbcd16"},
+        "name":"权限管理",
+        "tag":"roleManage",
+        "address":"./manage:roleManage",
+        "type":"权限管理",
+        "desc":"模块描述", 
+        "level": 1
+    },
+    {
+        "_id":{"$oid":"5728d20c6dcfc9be33dbcd17"},
+        "name":"内容管理",
+        "tag":"newsManage",
+        "address":"./manage:newsManage",
+        "type":"内容管理",
+        "desc":"模块描述", 
+        "level": 1
+    , "hasMore": true},
+    {
+        "_id":{"$oid":"5728d2246dcfc9be33dbcd18"},
+        "name":"新闻管理",
+        "tag":"newsManage",
+        "address":"./manage:newsManage",
+        "type":"内容管理",
+        "desc":"模块描述", 
+        "level": 2
+    },
+    {
+        "_id":{"$oid":"5728d2516dcfc9be33dbcd19"},
+        "name":"产品管理",
+        "tag":"productManage",
+        "address":"./manage:productManage",
+        "type":"内容管理",
+        "desc":"模块描述", 
+        "level": 2
+    },
+    {
+        "_id":{"$oid":"5728d2726dcfc9be33dbcd1a"},
+        "name":"合作伙伴管理",
+        "tag":"partnerManage",
+        "address":"./manage:partnerManage",
+        "type":"内容管理",
+        "desc":"模块描述", 
+        "level": 2
+    },
+    {
+        "_id":{"$oid":"5728d2ca6dcfc9be33dbcd1b"},
+        "name":"公司信息管理",
+        "tag":"companyInfo",
+        "address":"./manage:companyInfo",
+        "type":"内容管理",
+        "desc":"模块描述", 
+        "level": 2
+    }
+]

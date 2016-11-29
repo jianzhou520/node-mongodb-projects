@@ -1,0 +1,9 @@
+doctype html
+html(lang="zh-CN")
+    include commonHead.jade
+    body
+        include mainNavbar.jade
+        main.content.container.newsContent
+            h2 #{news[0].title}
+            div.row!= news[0].content
+        include footer

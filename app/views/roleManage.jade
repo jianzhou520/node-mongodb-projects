@@ -1,0 +1,114 @@
+div.operation
+    span.remove-all.glyphicon.glyphicon-remove-sign
+    span.add.glyphicon.glyphicon-plus-sign(
+        type="button",
+        data-toggle="modal",
+        data-target="#addRoleModal"
+    )
+table.table.table-hover.table-condensed
+    thead
+        tr
+            th
+                input(type="checkbox", id="selectAll", data-type="role")
+            th 序号
+            th 管理员姓名
+            th 可操作模块
+            th 操作
+    tbody
+        -for ( var i = 0; i < tableData.length; i++ )
+            tr(
+                data-itemid="#{tableData[i]._id}"
+            )
+                td
+                    input(type="checkbox")
+                td #{(i+1)}
+                td #{tableData[i]._id}
+                td #{tableData[i].moduleObj.name}
+                td
+                    span.glyphicon.glyphicon-remove-sign.operate-item.delete-item
+                    span.glyphicon.glyphicon-edit.operate-item.edit-item
+
+//- 添加权限的对话框
+div.modal.fade(
+    id="addRoleModal",
+    tabindex="-1",
+    role="dialog",
+    aria-labelledby="addRoleModal"
+)
+    div.modal-dialog.modal-sm(
+        role="document"
+    )
+        div.modal-content
+            div.modal-header
+                button.close(
+                    type="button",
+                    data-dismiss="modal",
+                    aria-label="Close"
+                )
+                    span(aria-hidden="true") &times;
+                h4 添加权限
+            div.modal-body
+                form.form-horizontal(
+                    method="post",
+                    action="/manage/addItem"
+                )
+                    input(
+                        type="hidden",
+                        name="type",
+                        value="role"
+                    )
+                    input(
+                        type="hidden",
+                        name="refresh",
+                        value="/manage:roleManage"
+                    )
+                    div.form-group
+                        label.col-sm-3.control-label(for="selectedUser") 用户
+                        div.col-sm-9
+                            select.form-control(name="userId",id="selectedUser")
+                                option(value="null") ======从后台获取模块出错======
+
+                    div.form-group
+                        label.col-sm-3.control-label(for="selectedModal") 模块
+                        div.col-sm-9
+                            select.form-control(name="moduleId",id="selectedModule")
+                                option(value="null") ======从后台获取模块出错======
+                    div.form-group
+                        div.col-sm-12
+                            input.form-control.btn-info(type="submit")
+            div.modal-footer
+script.
+    $('#addRoleModal').on('show.bs.modal', function ( event ) {
+        var optionStr = '<option value="$value">$text</option>';
+        $.ajax({
+            url:'/getAllData:module',
+            type: 'get'
+        }).done( function ( data ) {
+            var options = '';
+            for ( var i = 0; i < data.length; i++ ) {
+                options = options +
+                    optionStr
+                    .replace('$value', data[i]._id)
+                    .replace('$text', data[i].name);
+            }
+            $('#selectedModule').html( options );
+        }).fail( function ( jqXHR, statusText, errThrown ) {
+            console.log ( '从后台获取模块出错 ' + errThrown );
+        });
+        
+        $.ajax({
+            url:'/getAllData:user',
+            type: 'get'
+        }).done( function ( data ) {
+            var options = '';
+            for ( var i = 0; i < data.length; i++ ) {
+                options = options +
+                    optionStr
+                    .replace('$value', data[i]._id)
+                    .replace('$text', data[i].name);
+            }
+            $('#selectedUser').html( options );
+        }).fail( function ( jqXHR, statusText, errThrown ) {
+            console.log ( '从后台获取用户出错 ' + errThrown );
+        });
+    });

@@ -1,0 +1,131 @@
+table.table.table-hover.table-condensed
+    thead
+        tr
+            th 公司名称
+            th 公司地址
+            th 联系人
+            th 电话
+            th 手机
+            th 操作
+    tbody
+        tr
+        if ( tableData.length > 0 ) 
+            td #{tableData[0].getValue('name')}
+            td #{tableData[0].getValue('address')}
+            td #{tableData[0].getValue('person')}
+            td #{tableData[0].getValue('tel')}
+            td #{tableData[0].getValue('phone')}
+            td
+                span.glyphicon.glyphicon-edit.operate-item.edit-item(
+                    type="button",
+                    data-toggle="modal",
+                    data-target="#editCompnayInfo"
+                )
+        else 
+            td
+            td
+            td
+            td
+            td
+//- 添加公司详情的对话框
+div.modal.fade(
+    id="editCompnayInfo",
+    tabindex="-1",
+    role="dialog",
+    aria-labelledby="editCompnayInfo"
+)
+    div.modal-dialog.modal-lg(
+        role="document"
+    )
+        div.modal-content
+            div.modal-header
+                button.close(
+                    type="button",
+                    data-dismiss="modal",
+                    aria-label="Close"
+                )
+                    span(aria-hidden="true") &times;
+                h4 修改公司信息
+            div.modal-body
+                form.form-horizontal(
+                    method="post",
+                    id="editInfoForm",
+                    action="/update"
+                )
+                    input(
+                        type="hidden",
+                        name="_id",
+                        value="#{tableData[0].getValue('_id')}"
+                    )
+                    input(
+                        type="hidden",
+                        name="type",
+                        value="companyInfo"
+                    )
+                    input(
+                        type="hidden",
+                        name="refresh",
+                        value="/manage:companyInfo"
+                    )
+                    div.form-group
+                        label.col-sm-2.control-label(for="name") 公司名称
+                        div.col-sm-10
+                            input.form-control(
+                                type="text",
+                                name="name",
+                                value="#{tableData[0].getValue('name')}",
+                                id="name",
+                                required="required",
+                                placeholder="请输入公司名称"
+                            )
+                    div.form-group
+                        label.col-sm-2.control-label(for="address") 公司地址
+                        div.col-sm-10
+                            input.form-control(
+                                type="text",
+                                name="address",
+                                value="#{tableData[0].getValue('address')}",
+                                id="address",
+                                required="required",
+                                placeholder="请输入公司地址"
+                            )
+                    div.form-group
+                        label.col-sm-2.control-label(for="person") 公司联系人
+                        div.col-sm-10
+                            input.form-control(
+                                type="text",
+                                name="person",
+                                value="#{tableData[0].getValue('person')}",
+                                id="person",
+                                required="required",
+                                placeholder="请输入公司联系人"
+                            )
+                    div.form-group
+                        label.col-sm-2.control-label(for="tel") 联系电话
+                        div.col-sm-10
+                            input.form-control(
+                                type="text",
+                                name="tel",
+                                value="#{tableData[0].getValue('tel')}",
+                                id="tel",
+                                required="required",
+                                placeholder="请输入联系电话"
+                            )
+                    div.form-group
+                        label.col-sm-2.control-label(for="phone") 手机
+                        div.col-sm-10
+                            input.form-control(
+                                type="text",
+                                name="phone",
+                                value="#{tableData[0].getValue('phone')}",
+                                id="phone",
+                                required="required",
+                                placeholder="请输入手机"
+                            )
+                    div.form-group
+                        div.col-sm-12
+                            input.form-control.btn-info(type="submit")
+            div.modal-footer    
+script.
+    //- 处理表单提交的请求
+    //- $('#editCompnayInfo').

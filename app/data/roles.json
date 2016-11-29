@@ -1,0 +1,13 @@
+[
+    {
+        "id": "32432523",
+        "user": {
+            "_id" : {"$oid": "572efc7816526c3ba6fefb60"}, "name" : "zoukai", "userId" : "001", "password" : "234325" 
+        },
+        "modules": [
+            {"_id":{"$oid":"5728d1986dcfc9be33dbcd14"},"name":"模块管理","tag":"modulesManage","address":"./manage:modulesManage","type":"模块管理","desc":"模块描述", "level": 1},
+            {"_id":{"$oid":"5728d1b36dcfc9be33dbcd15"},"name":"用户管理","tag":"usersManage","address":"./manage:usersManage","type":"用户管理","desc":"模块描述", "level": 1},
+            {"_id":{"$oid":"5728d1e76dcfc9be33dbcd16"},"name":"权限管理","tag":"roleManage","address":"./manage:roleManage","type":"权限管理","desc":"模块描述", "level": 1}
+        ]
+    }
+]

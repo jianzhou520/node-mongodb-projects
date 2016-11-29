@@ -18,9 +18,9 @@
             background: #aaa;
             box-shadow: 0 0 0 0 black;
         }
-        
+
         table {
-            border: solid #aaa 1px; 
+            border: solid #aaa 1px;
             margin-top: 30px;
         }
 
@@ -28,7 +28,7 @@
             display: block;
             width: 968px;
             margin: 0 auto;
-            text-align: center; 
+            text-align: center;
         }
 
         div.item {
@@ -52,7 +52,7 @@
         div.loading {
             position: fixed;
             width: 100%;
-            height: 100%;            
+            height: 100%;
             background: rgba( 0,0,0,0.5 );
             top: 0;
             left: 0;
@@ -73,6 +73,7 @@
     </style>
 </head>
 <body>
+
     <h3>Show youtube videos list</h3>
     <button type="button" id="target">Get</button
     ><main role="main" id="main"
@@ -80,60 +81,82 @@
     ><div class="loading hidden" id="loading">
         <div class="wrapper">视频列表载入中。。。</div>
     </div>
+    <!--<video width="480" height="360"
+        src="blob:https://www.youtube.com/2103bad8-da5f-486c-bd38-1736ef1df73e"
+        poster="https://i.ytimg.com/vi/_8OMI3V5GkY/hqdefault.jpg"
+        controls="true">
+    </video>-->
+    <!--<object width="450" height="300"
+            classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000"
+            codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,40,0">
+        <param name="allowFullScreen" value="true"><param name="allowscriptaccess" value="always">
+        <param name="src" value="http://www.youtube.com/v/_8OMI3V5GkY?version=3&amp;hl=en_US&amp;rel=0">
+        <param name="allowfullscreen" value="true">
+        <embed width="450" height="300" type="application/x-shockwave-flash"
+            src="http://www.youtube.com/v/_8OMI3V5GkY?version=3&amp;hl=en_US&amp;rel=0"
+            allowfullscreen="true" allowscriptaccess="always">
+    </object>
+    <video width="300" height="300" crossorigin="anonymous" 
+        src="https://www.youtube.com/embed/_8OMI3V5GkY" controls>
+        
+    </video>-->
+    <!--<iframe src="https://www.youtube.com/embed/_8OMI3V5GkY" width="100%" height="100%"></iframe>-->
+    <iframe title="YouTube video player" class="youtube-player" type="text/html" 
+width="640" height="390" src="http://v.youku.com/v_show/id_XMTU1MTg4OTc2NA==.html?f=27157299"
+frameborder="0" allowFullScreen></iframe>
     <script type="text/html" id="template">
         <div class="item">
             <span class="title">$title</span>
             <img src="$img" alt="视频图片" class="videoImg">
-            <span class="time">$time</span>            
+            <span class="time">$time</span>
         </div>
     </script>
     <!-- <script src="http://localhost:35729/livereload.js"></script> -->
     <script>
-        (function () {
-            var xhr = new XMLHttpRequest(),
-                target = document.getElementById('target');       
-            target.addEventListener( 'click', function ( event ) {
-                var html = '',
-                    snippetObj = null,
-                    templateDOM = document.getElementById('template'),
-                    loading = document.getElementById('loading');
+        // (function () {
+        //     var xhr = new XMLHttpRequest(),
+        //         target = document.getElementById('target');
+        //     target.addEventListener( 'click', function ( event ) {
+        //         var html = '',
+        //             snippetObj = null,
+        //             templateDOM = document.getElementById('template'),
+        //             loading = document.getElementById('loading');
 
-                // 显示遮罩层
-                console.log(loading.classList);
-                loading.className = 'loading';
-                xhr.open(
-                    'get', 
-                    'https://www.googleapis.com/youtube/v3/videos?part=snippet&chart=mostpopular&key=AIzaSyBLsFSbIXQ2s82V34z4QmDVB_UWhT7Ss1s', 
-                    true 
-                );
+        //         // 显示遮罩层
+        //         console.log(loading.classList);
+        //         loading.className = 'loading';
+        //         xhr.open(
+        //             'get',
+        //             'https://www.googleapis.com/youtube/v3/videos?part=snippet&chart=mostpopular&key=AIzaSyBLsFSbIXQ2s82V34z4QmDVB_UWhT7Ss1s',
+        //             true
+        //         );
 
-                xhr.onreadystatechange = function ( ) {
-                    if ( xhr.readyState == 4 ) {
-                        if ( xhr.status >= 200 && xhr.status < 300 || xhr.status == 304 ) {
-                            var dataObj = JSON.parse(xhr.responseText);
-                            for ( var i = 0; i < dataObj.items.length; i++ ) {
-                                snippetObj = dataObj.items[i].snippet;
-                                html = html + 
-                                    templateDOM.innerHTML
-                                        .replace('$title', snippetObj.title)
-                                        .replace('$time', snippetObj.publishedAt)
-                                        .replace('$img', snippetObj.thumbnails.high.url);
+        //         xhr.onreadystatechange = function ( ) {
+        //             if ( xhr.readyState == 4 ) {
+        //                 if ( xhr.status >= 200 && xhr.status < 300 || xhr.status == 304 ) {
+        //                     var dataObj = JSON.parse(xhr.responseText);
+        //                     for ( var i = 0; i < dataObj.items.length; i++ ) {
+        //                         snippetObj = dataObj.items[i].snippet;
+        //                         html = html +
+        //                             templateDOM.innerHTML
+        //                                 .replace('$title', snippetObj.title)
+        //                                 .replace('$time', snippetObj.publishedAt)
+        //                                 .replace('$img', snippetObj.thumbnails.high.url);
 
-                            }
-                            console.log( html );
-                            document.getElementById('main').innerHTML = html;
-                            document.querySelector('img').onload = function () {
-                                loading.className = 'hidden loading';
-                            };
-                        }
-                    }
-                };
+        //                     }
+        //                     console.log( html );
+        //                     document.getElementById('main').innerHTML = html;
+        //                     document.querySelector('img').onload = function () {
+        //                         loading.className = 'hidden loading';
+        //                     };
+        //                 }
+        //             }
+        //         };
+        //         console.log( event );
+        //         xhr.send(null);
+        //     });
+        // })();
 
-                console.log( event );                
-                xhr.send(null);
-            });
-        })();
-        
     </script>
 </body>
 </html>

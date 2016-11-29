@@ -7,15 +7,16 @@ html(lang="zh-CN")
                 div.glyphicon.glyphicon-cloud.logo
                 div 管理员登录
             div.panel-body
-                form.form-horizontal(method="post" action="loginAction")
+                form.form-horizontal(method="post",action="./loginAction")
+                    p.col-sm-12.error.hidden dkafd 
                     div.form-group
-                        label(for="username").glyphicon.glyphicon-user.col-sm-1.control-label.col-sm-offset-1
+                        label(for="userId").glyphicon.glyphicon-user.col-sm-1.control-label.col-sm-offset-1
                         div.col-sm-9
                             input(
                                 type="text",
-                                id="username",
-                                name="name",
-                                placeholder="请输入用户名",
+                                id="userId",
+                                name="userId",
+                                placeholder="请输入账号",
                                 required="required",
                                 autocomplete="off"
                             ).form-control
@@ -41,6 +42,14 @@ html(lang="zh-CN")
                     data-content="管理员账户由超级管理员分配，如果您还没有账户，请先联系系统超级管理员！"
                 )
                 small 昕锐云&copy;版权所有
-            
         script.
-           $('#help').popover(); 
+           $('#help').popover();
+           // 根据页面参数显示提示信息
+           var params = location.search.split('=');
+           if ( params[1] === 'nouser' ) {
+               $('p.error').html('该账号不存在!');
+               $('p.error').removeClass('hidden');
+           } else if ( params[1] === 'error' ) {
+               $('p.error').html('账号或密码错误!');
+               $('p.error').removeClass('hidden');
+           }

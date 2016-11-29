@@ -46,9 +46,12 @@
     }
   },
   "dependencies": {
-    "body-parser": "^1.15.0",
+    "bcryptjs": "^2.3.0",
+    "body-parser": "^1.15.1",
     "express": "^4.13.4",
     "jade": "^1.11.0",
-    "multer": "^1.1.0"
+    "mongoose": "^4.4.14",
+    "multer": "^1.1.0",
+    "ueditor": "^1.1.1"
   }
 }
